@@ -1,0 +1,23 @@
+name: Increment value test
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.spacelift/config.yml'
+jobs:
+  release:
+    name: Increment release value
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Increment value
+        uses: yoichiro/gh-action-increment-value@main
+        with:
+          target_directory: '.spacelift'
+          target_file: 'config.yml'
+          prefix: 'module_version: '
+          suffix: ''
+          commit_message: 'Increment module version to '
